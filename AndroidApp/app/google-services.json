@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "137332624666",
+    "project_id": "delta-study-booths-tracker",
+    "storage_bucket": "delta-study-booths-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137332624666:android:661455967bf7eb126930a3",
+        "android_client_info": {
+          "package_name": "com.example.deltastudyboothstracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137332624666-0acci6obu3lsvcnfghavud4r613iubuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSZxqLI53sqOCLUJvt8a0q9mvQfD53tkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137332624666-0acci6obu3lsvcnfghavud4r613iubuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
