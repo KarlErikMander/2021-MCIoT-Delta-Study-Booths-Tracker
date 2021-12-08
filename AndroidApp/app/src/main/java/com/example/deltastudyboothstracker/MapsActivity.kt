@@ -1,8 +1,13 @@
 package com.example.deltastudyboothstracker
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,6 +25,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var firebaseDB: FirebaseFirestore = FirebaseFirestore.getInstance();
     private var markerList: HashMap<Int,MarkerOptions> = HashMap()
     private var roomCordinates: HashMap<Int, LatLng> = HashMap()
+    lateinit var roomListView: RecyclerView
+    lateinit var roomAdapter: SingleRoomAdapter
+    private val roomList = mutableListOf<SingleRoom>()
+
     companion object{
         private const val TAG = "MapsActivity"
     }
@@ -58,7 +67,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         if(markerList.containsKey(it.id.toInt())) {
                             var marker = markerList[it.id.toInt()]
                             var title = it.data["occupied"].toString()
-                            marker?.snippet("AA")
+
+                            // marker?.snippet("AA")
                         }
                     Log.d(TAG, "it: ${it.id} .Current data: ${it.data}")
                 } else {
@@ -68,6 +78,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        val view = super.onCreateView(name, context, attrs)
+        roomAdapter = SingleRoomAdapter(roomList)
+        roomListView = findViewById(R.id.recycler_view_rooms)
+        roomListView.adapter = roomAdapter
+        // TODO FIX THIS MADNESS
+        // roomListView.layoutManager = LinearLayoutManager(view!.context)
+        return view
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         Log.d(TAG, "Map loaded")

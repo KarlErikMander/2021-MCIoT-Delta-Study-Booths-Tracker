@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/Documents/2021-MCIoT-Delta-Study-Booths-Tracker/AndroidApp/app/src/main/res/drawable/recyclerview_single_item_layout.xml" value="0.2265625" />
         <entry key="..\:/Users/user/Documents/2021-MCIoT-Delta-Study-Booths-Tracker/AndroidApp/app/src/main/res/layout/activity_maps.xml" value="0.20153985507246377" />
+        <entry key="..\:/Users/user/Documents/2021-MCIoT-Delta-Study-Booths-Tracker/AndroidApp/app/src/main/res/layout/single_room_list_item.xml" value="0.21041666666666667" />
       </map>
     </option>
   </component>
