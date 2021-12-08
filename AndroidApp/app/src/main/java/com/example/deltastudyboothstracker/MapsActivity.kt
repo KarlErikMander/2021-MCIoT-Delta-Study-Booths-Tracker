@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.deltastudyboothstracker.databinding.ActivityMapsBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import java.sql.Timestamp
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -38,6 +39,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        roomAdapter = SingleRoomAdapter(roomList)
+        roomListView = findViewById(R.id.recycler_view_rooms)
+        roomListView.adapter = roomAdapter
+        roomListView.layoutManager = LinearLayoutManager(applicationContext)
+
         // Save roomCordinates
         roomCordinates[0] = LatLng(59.1, 24.1)
         roomCordinates[1] = LatLng(59.2, 24.1)
@@ -56,6 +63,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val docRef = firebaseDB.collection("rooms")
         docRef.addSnapshotListener { snapshot, e ->
+            roomList.clear()
+            roomAdapter.notifyDataSetChanged()
             snapshot?.forEach {
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -66,8 +75,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     // Set changed data to marker
                         if(markerList.containsKey(it.id.toInt())) {
                             var marker = markerList[it.id.toInt()]
-                            var title = it.data["occupied"].toString()
 
+                            var occupied = it.data["occupied"].toString().toBoolean()
+                            var id = it.id.toInt()
+                            val timestamp = it["timestamp"] as com.google.firebase.Timestamp
+                            val date = timestamp.toDate()
+                            val singleRoom = SingleRoom(id, date,occupied)
+                            roomList.add(singleRoom)
+                            roomAdapter.notifyDataSetChanged()
                             // marker?.snippet("AA")
                         }
                     Log.d(TAG, "it: ${it.id} .Current data: ${it.data}")
@@ -76,16 +91,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-    }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        val view = super.onCreateView(name, context, attrs)
-        roomAdapter = SingleRoomAdapter(roomList)
-        roomListView = findViewById(R.id.recycler_view_rooms)
-        roomListView.adapter = roomAdapter
-        // TODO FIX THIS MADNESS
-        // roomListView.layoutManager = LinearLayoutManager(view!.context)
-        return view
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

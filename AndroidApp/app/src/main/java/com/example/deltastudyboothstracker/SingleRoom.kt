@@ -1,9 +1,9 @@
 package com.example.deltastudyboothstracker
 
-import java.sql.Timestamp
+import java.util.Date
 
 data class SingleRoom (
         val id: Int,
-        val timeStamp: Timestamp,
+        val date: Date,
         val occupied: Boolean
         )
