@@ -11,7 +11,7 @@ import java.util.*
 
 class SingleRoomViewHolder (private val singleRoomItem: View): RecyclerView.ViewHolder(singleRoomItem) {
     fun bind(item: SingleRoom){
-        singleRoomItem.findViewById<TextView>(R.id.room_id_textview).text = "Room " + item.id.toString()
+        singleRoomItem.findViewById<TextView>(R.id.room_id_textview).text = "Room " + (item.id + 1).toString()
         val group = singleRoomItem.findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.parent)
         val textViewOccupied = singleRoomItem.findViewById<TextView>(R.id.room_occupied_textview)
 

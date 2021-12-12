@@ -25,28 +25,16 @@ android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view_rooms"
         >
+
         <TextView
             android:id="@+id/room_room_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/room_statuses"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/room_notify_button"
-            android:textSize="20dp"
-            android:text="@string/room_statuses"
-            />
-        <Switch
-            android:id="@+id/room_notify_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/room_room_textview"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Enable noticication"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
