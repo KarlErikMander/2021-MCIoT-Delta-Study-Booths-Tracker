@@ -1,8 +1,14 @@
 package com.example.deltastudyboothstracker
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -13,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.example.deltastudyboothstracker.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.model.*
 import com.google.firebase.firestore.FirebaseFirestore
+import java.lang.Exception
 import kotlin.math.log
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -30,6 +37,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val TAG = "MapsActivity"
     }
 
+    val Context.isConnected: Boolean
+        get() {
+            return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+                .activeNetworkInfo?.isConnected == true
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,43 +65,51 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         roomCordinates[7] = LatLng(58.38506, 26.72557)
         roomCordinates[8] = LatLng(58.38501, 26.72569)
         roomCordinates[9]  = LatLng(58.38493, 26.72565)
-
-
+        Toast.makeText(this, "oncreate",Toast.LENGTH_LONG)
+        Toast.makeText(applicationContext, "onCreate",Toast.LENGTH_LONG)
+        Toast.makeText(baseContext, "onCreate",Toast.LENGTH_LONG)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        if(!this.isConnected)
+            Toast.makeText(this, "Internet connection is required!",Toast.LENGTH_LONG).show()
 
 
+        // Connect Firebase
         val docRef = firebaseDB.collection("rooms")
         docRef.addSnapshotListener { snapshot, e ->
-            roomList.clear()
-            roomAdapter.notifyDataSetChanged()
-            snapshot?.forEach {
-                Log.i(TAG, it.toString())
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-                if (it != null && it.exists()) {
-                    // Set changed data to marker
-                    if(markerList.containsKey(it.id.toInt())) {
-                        var occupied = it.data["occupied"].toString().toBoolean()
-                        var id = it.id.toInt()
-                        val timestamp = it["timestamp"] as com.google.firebase.Timestamp
-                        val date = timestamp.toDate()
-                        val singleRoom = SingleRoom(id, date, occupied)
-                        roomList.add(singleRoom)
-                        roomAdapter.notifyDataSetChanged()
-                        markerList[it.id.toInt()]?.setIcon(
-                            if(occupied) BitmapDescriptorFactory.fromResource(R.drawable.occupied) else BitmapDescriptorFactory.fromResource(R.drawable.free)
-                        )
+            try {
+                roomList.clear()
+                roomAdapter.notifyDataSetChanged()
+                snapshot?.forEach {
+                    Log.i(TAG, it.toString())
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e)
                     }
-                    Log.d(TAG, "it: ${it.id} .Current data: ${it.data}")
-                } else {
-                    Log.d(TAG, "Current data: null")
+                    if (it != null && it.exists()) {
+                        // Set changed data to marker
+                        if(markerList.containsKey(it.id.toInt())) {
+                            var occupied = it.data["occupied"].toString().toBoolean()
+                            var id = it.id.toInt()
+                            val timestamp = it["timestamp"] as com.google.firebase.Timestamp
+                            val date = timestamp.toDate()
+                            val singleRoom = SingleRoom(id, date, occupied)
+                            roomList.add(singleRoom)
+                            roomAdapter.notifyDataSetChanged()
+                            markerList[it.id.toInt()]?.setIcon(
+                                if(occupied) BitmapDescriptorFactory.fromResource(R.drawable.occupied) else BitmapDescriptorFactory.fromResource(R.drawable.free)
+                            )
+                        }
+                        Log.d(TAG, "it: ${it.id} .Current data: ${it.data}")
+                    } else {
+                        Log.d(TAG, "Current data: null")
+                    }
                 }
+            }catch (err: Exception){
+                Log.e(TAG, err.localizedMessage)
             }
+
         }
     }
 
