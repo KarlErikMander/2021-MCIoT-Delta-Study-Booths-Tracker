@@ -24,7 +24,7 @@ Delta Study Booth Tracker is an app for anyone who uses delta study booths. You 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Links
-- [IoT implementatio](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot)
+- [IoT implementation](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot)
 
 ### Built With
 
