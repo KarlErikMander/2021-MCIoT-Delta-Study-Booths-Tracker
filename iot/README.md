@@ -44,9 +44,13 @@ display(oled, u8g2, u8g2_font_profont29_mf);
 - RGB-single:
   rgb_single(rgb1, D3, D4, D2);
   
-### IoTempower setup codes
+### Links
 - [Ultra-sonic sensor](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot/ultra-sonic)
-
+- [Oled](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot/oled)
+- [RGB-single](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot/rgb-single)
+- [Node-red flow](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/blob/main/iot/flows.json)
+- [Node-red flow picture](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/blob/main/iot/node-red-flow.png)
+- [Node-red function picture](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/blob/main/iot/node-red-function.png)
 
 ## Authors
 Ziya Mammadov
