@@ -43,6 +43,10 @@ display(oled, u8g2, u8g2_font_profont29_mf);
   hcsr04(distance, D5, D7).with_precision(10);
 - RGB-single:
   rgb_single(rgb1, D3, D4, D2);
+  
+### IoTempower setup codes
+- [Ultra-sonic sensor](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot/ultra-sonic)
+
 
 ## Authors
 Ziya Mammadov
