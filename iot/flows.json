@@ -1,0 +1,458 @@
+[
+    {
+        "id": "bf56d67c0877fa80",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fe331bf7569255c8",
+        "type": "debug",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b8b629a6ed1824dd",
+        "type": "mqtt in",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "topic": "ultra-sonic/distance",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "d2200acd5dfd1644",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 460,
+        "wires": [
+            [
+                "ffeb6b0165c0453b",
+                "a4b47e6ca6be8d07",
+                "fe331bf7569255c8",
+                "b0d2622966e099c8"
+            ]
+        ]
+    },
+    {
+        "id": "ffeb6b0165c0453b",
+        "type": "ui_chart",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "group": "1b3ec6ef0959f90e",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 450,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4b47e6ca6be8d07",
+        "type": "switch",
+        "z": "bf56d67c0877fa80",
+        "name": "less than 1000",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "1000",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 480,
+        "y": 460,
+        "wires": [
+            [
+                "871222401483bed7"
+            ],
+            [
+                "befc8dac951191cb"
+            ]
+        ]
+    },
+    {
+        "id": "871222401483bed7",
+        "type": "change",
+        "z": "bf56d67c0877fa80",
+        "name": "true",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"occupied\":true,\"timestamp\":\"_serverTimestamp\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 420,
+        "wires": [
+            [
+                "8cb1ac405cb6f0f9"
+            ]
+        ]
+    },
+    {
+        "id": "befc8dac951191cb",
+        "type": "change",
+        "z": "bf56d67c0877fa80",
+        "name": "false",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"occupied\":false,\"timestamp\":\"_serverTimestamp\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 500,
+        "wires": [
+            [
+                "8cb1ac405cb6f0f9"
+            ]
+        ]
+    },
+    {
+        "id": "2c4485848a47b720",
+        "type": "debug",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8cb1ac405cb6f0f9",
+        "type": "rbe",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "88de8b673828eaa3"
+            ]
+        ]
+    },
+    {
+        "id": "b0d2622966e099c8",
+        "type": "mqtt out",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "topic": "oled/oled",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d2200acd5dfd1644",
+        "x": 460,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "3dbcdc4c2a874341",
+        "type": "Firestore out",
+        "z": "bf56d67c0877fa80",
+        "name": "firestore",
+        "collection": "rooms",
+        "document": "1",
+        "operation": "update",
+        "admin": "90d0ee0c6d4fd9f4",
+        "eject": false,
+        "x": 1200,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88de8b673828eaa3",
+        "type": "function",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "func": "previous = {};\nprevious = context.get('previous');\ncurrent = msg.payload;\nif(!previous) {\n    context.set('previous', msg.payload);\n    previous = msg.payload;\n}\nif(!previous.occupied && current.occupied){\n    previous.occupied = true;\n}else if(previous.occupied && current.occupied){\n    previous.occupied = false;\n}\ncontext.set('previous', previous);\ncurrent.occupied = previous.occupied;\nmsg.payload = current;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 460,
+        "wires": [
+            [
+                "3dbcdc4c2a874341",
+                "2c4485848a47b720",
+                "c4130bfc83f5d687"
+            ]
+        ]
+    },
+    {
+        "id": "c4130bfc83f5d687",
+        "type": "switch",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "property": "payload.occupied",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 620,
+        "wires": [
+            [
+                "a99c9f18e0065e81"
+            ],
+            [
+                "a6ab8b03b004123f"
+            ]
+        ]
+    },
+    {
+        "id": "a99c9f18e0065e81",
+        "type": "change",
+        "z": "bf56d67c0877fa80",
+        "name": "red",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ff0000",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 580,
+        "wires": [
+            [
+                "284bcdcfe8ccac1a"
+            ]
+        ]
+    },
+    {
+        "id": "a6ab8b03b004123f",
+        "type": "change",
+        "z": "bf56d67c0877fa80",
+        "name": "green",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "00ff00",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 680,
+        "wires": [
+            [
+                "284bcdcfe8ccac1a"
+            ]
+        ]
+    },
+    {
+        "id": "06c102230c3e9812",
+        "type": "mqtt out",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "topic": "rgb-single/rgb1/rgb/set",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d2200acd5dfd1644",
+        "x": 1240,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "284bcdcfe8ccac1a",
+        "type": "rbe",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 990,
+        "y": 620,
+        "wires": [
+            [
+                "06c102230c3e9812",
+                "46bf8e5376e0a5cf"
+            ]
+        ]
+    },
+    {
+        "id": "46bf8e5376e0a5cf",
+        "type": "debug",
+        "z": "bf56d67c0877fa80",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "d2200acd5dfd1644",
+        "type": "mqtt-broker",
+        "name": "local iot network",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1b3ec6ef0959f90e",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "965c8e8ad4afd077",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "90d0ee0c6d4fd9f4",
+        "type": "firebase admin",
+        "name": "delta-study-booths-tracker"
+    },
+    {
+        "id": "965c8e8ad4afd077",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

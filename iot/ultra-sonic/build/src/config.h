@@ -1,0 +1,6 @@
+#define HOSTNAME "ultra-sonic"
+#define mqtt_topic "ultra-sonic"
+#define mqtt_server "172.19.156.60"
+#define mqtt_user ""
+#define mqtt_password ""
+#define mqtt_discovery_prefix "iotempower"
