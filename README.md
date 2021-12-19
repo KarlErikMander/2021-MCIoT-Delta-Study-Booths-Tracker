@@ -1,3 +1,4 @@
+
 <div id="top"></div>
 
 
@@ -34,36 +35,39 @@ The booths are listed with the same letters as in real life. The map automatical
 - [IoT implementation](https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/tree/main/iot)
 
 ### Built With
+App: 
+* Kotlin for andorid app
+* Google Maps SDK
+* Firebase  
 
-Maps SDK for android Todo Todo Todo Todo Todo 
-
-* [Todo](https://todo.org/)
-
-
+Back end:
+ * Node red for sending data to Firebase
+ * Firebase for distributing data
+ 
+ Device:
+ * ESP 32
+ * Distance sensor
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Installation and Getting Started
 
-TODO
-<p align="right">(<a href="#top">back to top</a>)</p>
+#### App
+Download kotlin code and build the project. Install the apk. Done
 
-<!-- Installation -->
-## Installation
-TODO 
+#### Node Red and Broker
+Node Red and broker must be in the same local network where the devices are. Download and install Node-Red with desired broker.  Configure Node-Red flow that is <a href="https://github.com/KarlErikMander/2021-MCIoT-Delta-Study-Booths-Tracker/blob/main/iot/flows.json">here</a>
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
-## Usage
-
-TODO
+#### IoTEmpower   
+Setup IoTempower using <a href="https://github.com/iotempire/iotempower/blob/master/doc/installation.rst">this guide</a>.
+Download the desired nodes from IoT folder, set them to IoTempower and flash them to ESP32.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 <!-- Authors -->
+
 ## Authors
 
 Agnes Annilo
@@ -72,8 +76,3 @@ Ziya Mammadov
 Tofig Bakhshiyev
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-
-
